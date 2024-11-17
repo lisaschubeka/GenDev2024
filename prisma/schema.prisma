@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Game {
+  id              Int              @id @default(autoincrement())
+  team_home       String
+  team_away       String
+  starts_at       DateTime
+  tournament_name String
+  streamingOffers StreamingOffer[]
+}
+
+model StreamingPackage {
+  id                                         Int              @id @default(autoincrement())
+  name                                       String
+  monthly_price_cents                        Int
+  monthly_price_yearly_subscription_in_cents Int
+  streamingOffers                            StreamingOffer[]
+}
+
+model StreamingOffer {
+  @@id([game_id, streaming_package_id])
+
+  game                 Game             @relation(fields: [game_id], references: [id])
+  game_id              Int
+  streaming_package    StreamingPackage @relation(fields: [streaming_package_id], references: [id])
+  streaming_package_id Int
+  live                 Boolean
+  highlights           Boolean
+}
