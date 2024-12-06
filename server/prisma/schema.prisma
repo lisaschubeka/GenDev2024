@@ -19,7 +19,7 @@ model Game {
 model StreamingPackage {
   id                                         Int              @id
   name                                       String
-  monthly_price_cents                        Int
+  monthly_price_cents                        Int?
   monthly_price_yearly_subscription_in_cents Int
   streamingOffers                            StreamingOffer[]
 }

@@ -1,6 +1,6 @@
-export type streamingPackage = {
-    id: Number,
+export type streamingPackageCSV = {
+    id: string,
     name: string,
-    monthly_price_cents: Number,
-    monthly_price_yearly_subscription_in_cents: Number
+    monthly_price_cents: string,
+    monthly_price_yearly_subscription_in_cents: string
 }

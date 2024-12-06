@@ -1,0 +1,30 @@
+{
+  "name": "gendev2024",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node_modules/.bin/tsc",
+    "start": "node dist/index.js",
+    "dev": "node_modules/.bin/ts-node src/index.ts"
+  },
+  "prisma": {
+    "seed": "ts-node src/csv/seed.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "prisma": "^5.22.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "axios": "^1.7.7",
+    "csv-parser": "^3.0.0",
+    "express": "^4.21.1",
+    "express-json-validator-middleware": "^3.0.1"
+  }
+}

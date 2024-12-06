@@ -1,16 +1,17 @@
-export type StreamingPackage = {
-    total_matches: number;
-    covered_matches: number;
+import {GameOffer} from "./game"
+
+export type StreamingPackageResponse = {
+    total_matches: number
+    covered_matches: number
     packages: {
-        // TODO mention it in the documentation, not a smart approach when the provider IRL changes
-        // suffices for this project since the csv data is not changing
-        provider_id: number;
-        yearly_sub: boolean;
-        cost_cents: number;
-        games: number[];
-    }[];
-};
+        provider_id: number
+        provider_name: string
+        yearly_sub: boolean
+        cost_cents: number
+        games: GameOffer[]
+    }[]
+}
 
 export type StreamingPackagesResponse = {
-    streaming_packages: StreamingPackage[]; // Array of streaming packages
-};
+    streaming_packages: StreamingPackageResponse[]
+}
