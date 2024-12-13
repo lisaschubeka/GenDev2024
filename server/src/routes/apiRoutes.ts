@@ -23,19 +23,6 @@ export const teamNamesRequestSchema = {
     required: ["teamNames"],
 }
 
-export const gamesRequestSchema = {
-    type: "object",
-    properties: {
-        ids: {
-            type: "array",
-            items: {
-                type: "number",
-            }
-        }
-    },
-    required: ["ids"],
-}
-
 apiRoutes.post(
     "/streamingOffersByTeams",
     validate({ body: teamNamesRequestSchema }),
