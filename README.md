@@ -36,7 +36,7 @@ The server-side services are written using [TypeScript](https://www.typescriptla
 
 1. Install and run [Docker Desktop](https://www.docker.com/).
 2. Clone this repository and navigate in a terminal to the repository root.
-3. Run `docker-compose up --build`
+3. Run `docker compose up --build`
 4. Open `http://localhost:5173` in a browser.
 
 # Approach
