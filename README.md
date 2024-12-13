@@ -77,7 +77,7 @@ For this problem I have also chosen to use the **greedy algorithm** of the maxim
 same as the usage of the previous algorithm.
 
 To offer the users a variety of options, I have used a simple approach to generate a ranked list of combinations, by 
-*number of matches covered*. This approach iterates through all the streaming packages, and in each iteration adds 
+**number of matches covered**. This approach iterates through all the streaming packages, and in each iteration adds 
 the ith package to the ith combination and starts with the greedy algorithm from there to find the combination that covers as many games as possible.
 
 # Further Improvements
@@ -85,10 +85,4 @@ the ith package to the ith combination and starts with the greedy algorithm from
 - Implement searching of date ranges and leagues.
 - Write unit tests for the set cover and maximum coverage algorithms to verify correctness and edge cases.
 
-# TODOs
-
-- Documentation - the algorithms first attempt to find one combination that covers everything, then if this fails
-  tries to find a list of partial combinations
-- FOLLOW THE APPROACH AND SEE IF TI WORKS
-- Check all TODOs in the code
 
