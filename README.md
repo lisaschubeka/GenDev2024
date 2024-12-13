@@ -6,7 +6,7 @@ developed :)
 
 # Video Demo
 
-TODO
+[Click here](https://youtu.be/L-TBXg2sF1M)
 
 # Repository Structure
 
@@ -48,18 +48,20 @@ The search for best combinations can be reduced to two classical questions in th
 The aim of the search is to first attempt to find a combination of packages that is the **cheapest** and **covers all
 games** (both highlights and live streams) using the weighted greedy set cover algorithm. If no combination can be
 found that covers all games, the **greedy max coverage algorithm** will be used to find combinations that **covers as
-many matches** (both highlights and live streams) as possible, ranked.
+many matches** (both highlights and live streams) as possible, ranked by number of covered games.
 
 ### Modifications to both Algorithms
 
-- Instead of finding subsets that aim to cover the entire "universe" of elements, we are finding subsets that aim to
+Instead of finding subsets that aim to cover the entire "universe" of elements, we are finding subsets that aim to
   cover all the matches of teams selected by the users.
 
 ### Weighted Set Cover Problem
 
 The problem of finding the cheapest combination of streaming packages can be reduced to the weighted set cover
 problem. The games can be considered as the elements in this "universe" and the games offered by each streaming
-package can be considered as subsets with overlap. Each game has a weight of $$priceOfStreamingPackage /
+package can be considered as subsets with overlap. Each game has a weight of 
+
+$$priceOfStreamingPackage /
 gamesCoveredByStreamingPackage$$
 
 I have chosen to implement the **greedy algorithm of the set cover problem** due to the size of the dataset being
@@ -71,10 +73,12 @@ The algorithm iteratively adds the streaming package with the lowest weight to t
 
 The problem of trying to find a set of combinations that cover as many matches as possible can be reduced to the maximum coverage problem with some modifications. Instead of selecting at most $k$ subsets that cover as many elements as possible, streaming packages that cover the most games for a combination are iteratively selected until no more streaming packages offer games that are not yet covered.
 
-For this problem I have also chosen to use the greedy algorithm of the maximum coverage problem. The reason is the 
+For this problem I have also chosen to use the **greedy algorithm** of the maximum coverage problem. The reason is the 
 same as the usage of the previous algorithm.
 
-To offer the users a variety of options, I have used a simple approach to generate a ranked list of combinations, by number of matches covered. This approach iterates through all the streaming packages, and in each iteration adds the ith package to the ith combination and starts with the greedy algorithm from there to find the combination that covers as many games as possible.
+To offer the users a variety of options, I have used a simple approach to generate a ranked list of combinations, by 
+*number of matches covered*. This approach iterates through all the streaming packages, and in each iteration adds 
+the ith package to the ith combination and starts with the greedy algorithm from there to find the combination that covers as many games as possible.
 
 # Further Improvements
 
@@ -86,13 +90,5 @@ To offer the users a variety of options, I have used a simple approach to genera
 - Documentation - the algorithms first attempt to find one combination that covers everything, then if this fails
   tries to find a list of partial combinations
 - FOLLOW THE APPROACH AND SEE IF TI WORKS
-
-# Extra
-- The additional stuff the challenge suggests to implement
-
-# Done TODOs
-- The algorithm currently does not distinguish between live and highlights
-- Add details button to see monthly/yearly subscription
-- Naming of variables
-- Docker stuff (images don't add them directly and database)
 - Check all TODOs in the code
+
