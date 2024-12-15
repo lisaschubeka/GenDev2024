@@ -5,6 +5,7 @@ import { getProviderImage } from "../utils/assetsHelper.ts"
 import {CheckCircleIcon, ChevronDownIcon, XCircleIcon} from "@heroicons/react/24/outline"
 import {Package} from "../types/StreamingPackageCombo.ts"
 
+// Component to show the details of each package combination
 export function ListItemDropDown({ streamingPackage, allGamesFromSelectedTeams }: ResultsListItemProps) {
     const [expandedTournaments, setExpandedTournaments] = useState<Record<string, boolean>>({})
 

@@ -6,7 +6,7 @@ import {GameOffer} from "../types/game"
 
 export const TeamService = {
 
-    getStreamingOffers: async (
+    getPackageCombinations: async (
         teamNames: string[],
         priceLimit: number = Infinity
     ): Promise<{ streaming_packages: StreamingPackageResponse[] }> => {
@@ -18,6 +18,7 @@ export const TeamService = {
 
         let combinations: Map<number, StreamingOffer[]>[] | null
 
+        // If there is no price limit, attempt to find a single combination that covers all games
         if (priceLimit === Infinity) {
             const fullCombination = TeamService.findFullAvailabilityCombination(
                 gamesOfTeam,
@@ -26,6 +27,8 @@ export const TeamService = {
             )
             if (fullCombination) {
                 combinations = [fullCombination]
+            /* if no combination can be found that covers all games,
+               find combinations that partially cover them */
             } else {
                 combinations = TeamService.findListOfPartialAvailabilityCombinations(
                     gamesOfTeam,
@@ -33,6 +36,9 @@ export const TeamService = {
                     costOfStreamingPackages
                 )
             }
+        /* If there is a price limit, attempt to find combinations
+           that both fully and partially cover the requested games.
+           Then filter out the ones over the price limit. */
         } else {
             const fullCombination = TeamService.findFullAvailabilityCombination(
                 gamesOfTeam,
@@ -180,7 +186,7 @@ export const TeamService = {
     findFullAvailabilityCombination: (
         gamesToCover: Game[],
         streamingOffersGroupByProvider: Map<number, StreamingOffer[]>,
-        streamingPackageCost: Map<number, [number, boolean]>
+        streamingPackageCost: Map<number, [number, boolean]> // Map<StreamingProviderId, [cost, isYearlySubscription]>
     ): Map<number, StreamingOffer[]> | null => {
         const streamingOffersGroupByProviderCopy = new Map<number, StreamingOffer[]>(streamingOffersGroupByProvider)
 
@@ -215,6 +221,7 @@ export const TeamService = {
                 })
 
                 if (coveredGamesByProvider > 0) {
+                    // calculating the weight of each match
                     const costPerMatch = cost / coveredGamesByProvider
                     if (costPerMatch < bestCostPerMatch) {
                         bestCostPerMatch = costPerMatch
@@ -224,6 +231,7 @@ export const TeamService = {
                 }
             }
 
+            // No more providers have additional uncovered games
             if (bestProvider === null || bestOffer.length === 0) {
                 return null
             }
@@ -250,6 +258,8 @@ export const TeamService = {
             streamingOffersGroupByProviderCopy.delete(bestProvider)
         }
 
+        /* checking if any providers are redundant
+           (i.e. don't cover additional games that e.g. a combination of two other providers already cover) */
         for (const [providerId, offers] of Array.from(selectedProviders.entries())) {
             const tempProviders = new Map(selectedProviders)
             tempProviders.delete(providerId)
@@ -298,6 +308,8 @@ export const TeamService = {
         const allCombinations: { map: Map<number, StreamingOffer[]>, coveredGames: number }[] = []
         let iterations = 0
 
+        /* In each iteration the ith provider is added and the algorithm adds providers to attempt
+           to cover as many games as possible from there */
         while (uncoveredGames.size > 0 && iterations < streamingOffersGroupByProvider.size) {
 
             iterations += 1
@@ -311,6 +323,7 @@ export const TeamService = {
             const ithProviderId = providerIds[iterations - 1]
             const ithProviderOffers = streamingOffersGroupByProviderCopy.get(ithProviderId)
 
+            // ith provider only added if it covers some requested games
             if (ithProviderOffers) {
                 selectedProviders.set(ithProviderId, ithProviderOffers)
 
@@ -340,6 +353,7 @@ export const TeamService = {
                 let mostCoveredGames = 0
                 let lowestCost = Infinity
 
+                // finding the provider (not including the ith provider) that covers as many games as possible
                 for (const [providerId, offers] of streamingOffersGroupByProviderCopy) {
                     let coveredGamesByProvider = 0
 

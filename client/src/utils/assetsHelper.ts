@@ -1,4 +1,6 @@
 export const getProviderImage = (providerId: number) => {
+
+    // hard coding of file paths needed due to duplicate image usage
     const providerImages: Record<number, string> = {
         2: "src/assets/streamingProviders/2.png",
         3: "src/assets/streamingProviders/3.png",

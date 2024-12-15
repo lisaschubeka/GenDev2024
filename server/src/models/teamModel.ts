@@ -14,17 +14,6 @@ const TeamModel = {
         });
     },
 
-    getGamesById: async (ids: number[]): Promise<Game[]> => {
-        return prisma.game.findMany({
-            where: {
-                id: {
-                    in: ids
-                }
-            }
-        });
-    },
-
-
     getStreamingOffersByGames : async (gameIds: number[])
         : Promise<StreamingOffer[]> => {
         return prisma.streamingOffer.findMany({

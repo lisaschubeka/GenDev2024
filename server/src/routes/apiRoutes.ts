@@ -29,7 +29,7 @@ apiRoutes.post(
     async (req: Request, res: Response) => {
         try {
             const {teamNames, priceLimit} = req.body
-            const streamProvidersAvailability = await TeamService.getStreamingOffers(
+            const streamProvidersAvailability = await TeamService.getPackageCombinations(
                 teamNames,
                 priceLimit)
             res.status(200).json(streamProvidersAvailability)

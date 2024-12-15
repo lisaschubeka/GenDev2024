@@ -10,6 +10,7 @@ export type ResultsListItemProps = {
     allGamesFromSelectedTeams: Game[]
 }
 
+// Component to visualise each package combination overview
 function ResultsListItem({ streamingPackage, allGamesFromSelectedTeams }: ResultsListItemProps) {
     const [expanded, setExpanded] = useState(false)
     const [showModal, setShowModal] = useState(false)
